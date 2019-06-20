@@ -32,3 +32,4 @@ datagroup: build_once {
 
 explore: reviews_raw {}
 explore: reviews_persist {}
+explore: reviews_view_creation {}
