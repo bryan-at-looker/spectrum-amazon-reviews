@@ -1,6 +1,6 @@
 connection: "spectrum-amazon-reviews"
 
-# include: "*.view.lkml"                       # include all views in this project
+include: "prod_reviews.view.lkml"                       # include all views in this project
 # include: "my_dashboard.dashboard.lookml"   # include a LookML dashboard called my_dashboard
 
 # # Select the views that should be a part of this model,
@@ -17,3 +17,5 @@ connection: "spectrum-amazon-reviews"
 #     sql_on: ${users.id} = ${orders.user_id} ;;
 #   }
 # }
+
+explore: prod_reviews {}
