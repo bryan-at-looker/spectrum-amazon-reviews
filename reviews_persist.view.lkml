@@ -57,4 +57,5 @@ view: reviews_view_creation {
       ) ;; # create view of sql from NDT
     }
   }
+  dimension: review_id {}
 }
