@@ -45,7 +45,6 @@ view: reviews_raw {
     type: time
     timeframes: [
       raw,
-      date,
       week,
       month,
       quarter,
@@ -60,6 +59,12 @@ view: reviews_raw {
     type: time
     timeframes: [raw, time]
     sql: DATEADD(years,5,DATEADD(milliseconds, MOD(STRTOL(LEFT(MD5(${customer_id}),15),16)+STRTOL(LEFT(MD5(${product_id}),15),16),86400000), ${review_raw})) ;;
+  }
+
+  dimension: review_date {
+    type: date
+    sql: ${review_time_time::date} ;;
+
   }
 
   dimension: review_headline {
@@ -84,13 +89,13 @@ view: reviews_raw {
   }
 
   dimension: verified_purchase {
-    type: string
-    sql: ${TABLE}.verified_purchase ;;
+    type: yesno
+    sql: ${TABLE}.verified_purchase = 'Y' ;;
   }
 
   dimension: vine {
-    type: string
-    sql: ${TABLE}.vine ;;
+    type: yesno
+    sql: ${TABLE}.vine = 'Y' ;;
   }
 
   dimension: year {

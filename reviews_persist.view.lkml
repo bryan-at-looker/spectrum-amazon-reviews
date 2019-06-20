@@ -13,7 +13,7 @@ view: reviews_persist {
       column: product_title { field: reviews_raw.product_title }
       column: review_body { field: reviews_raw.review_body }
       column: review_time { field: reviews_raw.review_time_raw }
-      column: review_date { field: reviews_raw.review_raw }
+      column: review_date { field: reviews_raw.review_date }
       column: review_headline { field: reviews_raw.review_headline }
       column: review_id { field: reviews_raw.review_id }
       column: star_rating { field: reviews_raw.star_rating }

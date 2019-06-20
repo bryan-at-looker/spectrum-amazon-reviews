@@ -18,4 +18,4 @@ include: "prod_reviews.view.lkml"                       # include all views in t
 #   }
 # }
 
-explore: prod_reviews {}
+explore: reviews {}
