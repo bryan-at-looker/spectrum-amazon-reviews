@@ -55,6 +55,7 @@ view: reviews_view_creation {
         WHERE review_date <= current_date
           AND review_time <= current_timestamp
       ) ;; # create view of sql from NDT
+      sql_step: CREATE TABLE ${SQL_TABLE_NAME} AS ( SELECT 1 as foo );;
     }
   }
   dimension: review_id {}
