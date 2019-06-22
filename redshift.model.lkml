@@ -1,4 +1,5 @@
 connection: "spectrum-amazon-reviews"
+label: "Amazon Reviews (Prod)"
 
 include: "prod_reviews.view.lkml"                       # include all views in this project
 # include: "my_dashboard.dashboard.lookml"   # include a LookML dashboard called my_dashboard
@@ -18,4 +19,9 @@ include: "prod_reviews.view.lkml"                       # include all views in t
 #   }
 # }
 
-explore: reviews {}
+explore: reviews {
+  conditionally_filter: {
+    filters: { field: review_date value: "1 days" }
+    unless: [previous_period_filter]
+  }
+}

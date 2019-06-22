@@ -1,4 +1,5 @@
 connection: "spectrum-amazon-reviews"
+label: "Amazon Reviews (Stage)"
 
 include: "reviews_persist.view.lkml"                       # include all views in this project
 include: "reviews_raw.view.lkml"
