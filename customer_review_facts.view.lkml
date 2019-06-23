@@ -5,6 +5,8 @@ view: customer_facts {
 view: customer_review_facts_base {
   extension: required
   derived_table: {
+    distribution_style: even
+    sortkeys: ["customer_id","min_review_date"]
     datagroup_trigger: everyday
     explore_source: reviews {
       column: customer_id {}
@@ -42,5 +44,11 @@ view: customer_facts_dimensions {
   }
   dimension_group: max_review_date {
     type: time
+  }
+  dimension_group: since_first_review {
+    type: duration
+    intervals: [month]
+    sql_start: ${min_review_date_raw} ;;
+    sql_end: ${reviews.review_raw} ;;
   }
 }
