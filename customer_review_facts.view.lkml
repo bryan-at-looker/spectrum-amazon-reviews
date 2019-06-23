@@ -1,4 +1,9 @@
-view: customer_review_facts {
+view: customer_facts {
+  extends: [customer_facts_dimensions, customer_review_facts_base]
+}
+
+view: customer_review_facts_base {
+  extension: required
   derived_table: {
     datagroup_trigger: everyday
     explore_source: reviews {
@@ -15,6 +20,10 @@ view: customer_review_facts {
       }
     }
   }
+}
+
+view: customer_facts_dimensions {
+  extension: required
   dimension: customer_id {  }
   dimension: product_count {
     type: number
