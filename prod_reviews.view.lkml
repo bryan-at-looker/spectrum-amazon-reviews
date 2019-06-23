@@ -6,6 +6,8 @@ view: reviews {
     primary_key: yes
     type: string
     sql: ${TABLE}.review_id ;;
+    link: { label: "See on Amazon" url: "https://www.amazon.com/review/{{value}}" icon_url: "https://www.google.com/s2/favicons?domain=www.amazon.com" }
+
   }
 
   dimension: customer_id {
@@ -39,6 +41,7 @@ view: reviews {
     link: {
       label: "View on Amazon"
       url: "https://www.amazon.com/dp/{{value}}"
+      icon_url: "https://www.google.com/s2/favicons?domain=www.amazon.com"
     }
   }
 
@@ -115,6 +118,13 @@ view: reviews {
   }
 
   dimension: star_rating {
+    group_label: "Review Details"
+    type: number
+    sql: ${TABLE}.star_rating ;;
+    value_format_name: decimal_0
+  }
+
+  dimension: star_rating_image {
     group_label: "Review Details"
     type: number
     sql: ${TABLE}.star_rating ;;
@@ -224,16 +234,13 @@ view: reviews {
     value_format_name: percent_2
   }
 
-
-
-  # } END Star Measures
-
   measure: average_stars {
     group_label: "Average Stars"
     group_item_label: "Average Stars"
     type: average
     sql: 1.00000*${star_rating} ;;
     value_format_name: decimal_2
+    drill_fields: [star_rating_image, product_count, review_count, customer_count, reviews_per_customer]
   }
 
   measure: average_stars_image {
@@ -242,6 +249,7 @@ view: reviews {
     type: average
     sql: 1.00000*${star_rating} ;;
     value_format_name: decimal_2
+    drill_fields: [star_rating_image, product_count, review_count, customer_count, reviews_per_customer]
     html:
     {% for i in (0..4) %}
     {% assign full= i | plus: 0.75 %}
@@ -256,6 +264,8 @@ view: reviews {
     {% endfor %}
     ;;
   }
+
+  # } END Star Measures
 
   dimension: votes {
     group_label: "Votes"
