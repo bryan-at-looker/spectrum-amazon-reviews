@@ -137,6 +137,97 @@ view: reviews {
     ;;
   }
 
+  # Star Measures {
+
+  measure: count_one_star {
+    group_label: "Star Counts"
+    group_item_label: "1-Star Reviews"
+    label: "1-Star Review Count"
+    type: count
+    filters: { field: star_rating value: "1" }
+  }
+
+  measure: count_two_star {
+    group_label: "Star Counts"
+    group_item_label: "2-Star Reviews"
+    label: "2-Star Review Count"
+    type: count
+    filters: { field: star_rating value: "2" }
+  }
+
+  measure: count_three_star {
+    group_label: "Star Counts"
+    group_item_label: "3-Star Reviews"
+    label: "3-Star Review Count"
+    type: count
+    filters: { field: star_rating value: "3" }
+  }
+
+  measure: count_four_star {
+    group_label: "Star Counts"
+    group_item_label: "4-Star Reviews"
+    label: "4-Star Review Count"
+    type: count
+    filters: { field: star_rating value: "4" }
+  }
+
+  measure: count_five_star {
+    group_label: "Star Counts"
+    group_item_label: "5-Star Reviews"
+    label: "5-Star Review Count"
+    type: count
+    filters: { field: star_rating value: "5" }
+  }
+
+  measure: one_star_percent {
+    group_label: "Star Distribution"
+    group_item_label: "1-Star Reviews"
+    label: "1-Star Percent"
+    type: number
+    sql: 1.0000*${count_one_star} / ${review_count} ;;
+    value_format_name: percent_2
+  }
+
+  measure: two_star_percent {
+    group_label: "Star Distribution"
+    group_item_label: "2-Star Reviews"
+    label: "2-Star Percent"
+    type: number
+    sql: 1.0000*${count_two_star} / ${review_count} ;;
+    value_format_name: percent_2
+  }
+
+  measure: three_star_percent {
+    group_label: "Star Distribution"
+    group_item_label: "3-Star Reviews"
+    label: "3-Star Percent"
+    type: number
+    sql: 1.0000*${count_three_star} / ${review_count} ;;
+    value_format_name: percent_2
+  }
+
+  measure: four_star_percent {
+    group_label: "Star Distribution"
+    group_item_label: "4-Star Reviews"
+    label: "4-Star Percent"
+    type: number
+    sql: 1.0000*${count_four_star} / ${review_count} ;;
+    value_format_name: percent_2
+  }
+
+  measure: five_star_percent {
+    group_label: "Star Distribution"
+    group_item_label: "5-Star Reviews"
+    label: "5-Star Percent"
+    type: number
+    sql: 1.0000*${count_five_star} / ${review_count} ;;
+    value_format_name: percent_2
+  }
+
+
+
+  # } END Star Measures
+
   measure: average_stars {
     group_label: "Average Stars"
     group_item_label: "Average Stars"

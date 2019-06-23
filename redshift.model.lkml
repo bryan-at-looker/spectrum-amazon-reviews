@@ -2,6 +2,7 @@ connection: "spectrum-amazon-reviews"
 label: "Amazon Reviews (Prod)"
 
 include: "prod_reviews.view.lkml"                       # include all views in this project
+include: "customer_review_facts.view.lkml"
 # include: "my_dashboard.dashboard.lookml"   # include a LookML dashboard called my_dashboard
 
 # # Select the views that should be a part of this model,
@@ -36,5 +37,11 @@ explore: reviews {
   conditionally_filter: {
     filters: { field: review_date value: "1 days" }
     unless: [previous_period_filter]
+  }
+  join: customer_facts {
+    view_label: "3) Customer Facts"
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${reviews.customer_id} = ${customer_facts.customer_id} ;;
   }
 }
