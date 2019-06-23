@@ -19,7 +19,20 @@ include: "prod_reviews.view.lkml"                       # include all views in t
 #   }
 # }
 
+
+datagroup: everyday {
+  sql_trigger: SELECT CURRENT_DATE ;;
+  max_cache_age: "24 hours"
+}
+
+datagroup: every_hour {
+  sql_trigger: SELECT EXTRACT(HOUR FROM SYSDATE) ;;
+  max_cache_age: "24 hours"
+}
+
 explore: reviews {
+  view_label: "1) Reviews"
+  persist_for: "4 hours"
   conditionally_filter: {
     filters: { field: review_date value: "1 days" }
     unless: [previous_period_filter]
