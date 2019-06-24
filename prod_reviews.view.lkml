@@ -130,7 +130,6 @@ view: reviews {
     sql: ${TABLE}.star_rating ;;
     value_format_name: decimal_0
     html:
-    <div>
     {% for i in (0..4) %}
     {% assign full= i | plus: 0.75 %}
     {% assign half= i | plus:  0.25 %}
@@ -142,8 +141,6 @@ view: reviews {
     <img src="https://bryan-at-looker.s3.amazonaws.com/misc/amazon_no_star.png"/>
     {% endif %}
     {% endfor %}
-    <br/>{{rendered_value}}
-    </div>
     ;;
   }
 
@@ -240,6 +237,19 @@ view: reviews {
     type: average
     sql: 1.00000*${star_rating} ;;
     value_format_name: decimal_2
+    link: { label: "Star Breakdown" url: "@{star_breakdown_drill_fields}"}
+  }
+
+  measure: drill_link_listener {
+    hidden: yes
+    type: sum
+    sql: 0 ;;
+    drill_fields: []
+  }
+
+  measure: star_drill {
+    type: sum
+    sql: 0 ;;
     drill_fields: [star_rating_image, product_count, review_count, customer_count, reviews_per_customer]
   }
 
@@ -249,8 +259,9 @@ view: reviews {
     type: average
     sql: 1.00000*${star_rating} ;;
     value_format_name: decimal_2
-    drill_fields: [star_rating_image, product_count, review_count, customer_count, reviews_per_customer]
+    link: { label: "Star Breakdown" url: "@{star_breakdown_drill_fields}"}
     html:
+    <a href="#drillmenu">
     {% for i in (0..4) %}
     {% assign full= i | plus: 0.75 %}
     {% assign half= i | plus:  0.25 %}
@@ -262,6 +273,7 @@ view: reviews {
     <img src="https://bryan-at-looker.s3.amazonaws.com/misc/amazon_no_star.png"/>
     {% endif %}
     {% endfor %}
+    </a>
     ;;
   }
 
