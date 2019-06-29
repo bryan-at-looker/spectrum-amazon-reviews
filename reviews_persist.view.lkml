@@ -46,7 +46,7 @@ view: reviews_persist {
 
 view: reviews_view_creation {
   derived_table: {
-    datagroup_trigger: everyday
+    datagroup_trigger: build_once
     create_process: {
       sql_step: DROP VIEW IF EXISTS prod.reviews ;; # drop view first
       sql_step: CREATE VIEW prod.reviews AS
@@ -58,5 +58,5 @@ view: reviews_view_creation {
       sql_step: CREATE TABLE ${SQL_TABLE_NAME} AS ( SELECT 1 as foo );;
     }
   }
-  dimension: review_id {}
+  dimension: foo {}
 }
