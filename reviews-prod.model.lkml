@@ -36,7 +36,7 @@ explore: reviews {
   persist_for: "4 hours"
   conditionally_filter: {
     filters: { field: reviews.review_date value: "1 days" }
-    unless: [reviews.previous_period_filter]
+    unless: [previous_period_filter]
   }
   join: customer_facts {
     view_label: "3) Customer Facts"

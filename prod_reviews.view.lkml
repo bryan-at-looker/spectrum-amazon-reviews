@@ -335,8 +335,15 @@ view: reviews {
     view_label: "2) Dates"
     type: date
     description: "Use this filter for period analysis"
-    sql: ${previous_period} IS NOT NULL ;;
+    sql: ${review_date_raw} > DATEADD(day,-1*${period_diff} + 1, DATEADD(day,-1,{% date_start previous_period_filter %} ) )
+    AND  ${review_date_raw} < {% date_end previous_period_filter %} ;;
     convert_tz: no
+  }
+
+  dimension: period_diff {
+    hidden: yes
+    type: number
+    sql: DATEDIFF(day,{% date_start previous_period_filter %}, {% date_end previous_period_filter %} ) ;;
   }
 
   dimension: previous_period {
@@ -350,9 +357,9 @@ view: reviews {
             THEN
               CASE
                 WHEN ${review_date_raw} >=  {% date_start previous_period_filter %}
-                  AND  ${review_date_raw} <= {% date_end previous_period_filter %}
+                  AND  ${review_date_raw} < {% date_end previous_period_filter %}
                   THEN 'This Period'
-                WHEN  ${review_date_raw} >= DATEADD(day,-1*DATEDIFF(day,{% date_start previous_period_filter %}, {% date_end previous_period_filter %} ) + 1, DATEADD(day,-1,{% date_start previous_period_filter %} ) )
+                WHEN  ${review_date_raw} >= DATEADD(day,-1*${period_diff} + 1, DATEADD(day,-1,{% date_start previous_period_filter %} ) )
                   AND  ${review_date_raw} < DATEADD(day,-1,{% date_start previous_period_filter %} ) + 1
                   THEN 'Previous Period'
               END
